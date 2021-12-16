@@ -189,6 +189,7 @@ classdef Project_App < matlab.apps.AppBase
             else
                app.ResultsTextArea.Value{8}='No heart palpation detected'; 
             end
+            %communicating the palpation result with the user
             %%%%
             app.ResultsTextArea.Value{9}='Heart Rate Variability: ';
               if(app.a20_39.Value==1)
@@ -218,6 +219,7 @@ classdef Project_App < matlab.apps.AppBase
                    app.ResultsTextArea.Value{10}='Normal HRV';
                 end
                 end
+                %communicating the HRV results with the user
             %%%%
         if(app.BPM<20)
         app.ResultsTextArea.Value{11}='Seek medical Attention Immediately!';
@@ -295,7 +297,8 @@ app.skipcounter=0;
             app.skipcounter = app.skipcounter + 1;
         end
  end
- %%%
+ %assessing the heart palpation occurence
+%%%
 sumHRVsq=0;
 tempo=0;
 for j = 1:app.beat_num-1
@@ -307,6 +310,7 @@ for j = 1:app.beat_num-1
 end
 app.RMSSD = sqrt(sumHRVsq/app.counterHRV);
 disp(app.RMSSD);
+%calculating RMSSD
 %%%%
             end
 
@@ -384,19 +388,6 @@ for k=1 : app.beat_num
    end
 end
 %%%
- %%%
-sumHRVsq=0;
-tempo=0;
-for j = 1:app.beat_num-1
-   tempo = r_r_intervals{j};
-   disp(tempo);
-   sumHRVsq = sumHRVsq + tempo^2;
-   disp(sumHRVsq);
-   app.counterHRV=app.counterHRV+1;
-end
-app.RMSSD = sqrt(sumHRVsq/app.counterHRV);
-disp(app.RMSSD);
-%%%%
 % Calculate the heart rate
 duration_in_seconds = samples / app.sampling_rate;
 
